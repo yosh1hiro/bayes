@@ -1,0 +1,16 @@
+db:
+  production:
+    adapter:  mysql2
+    encoding: unicode
+    host:     10.26.2.77
+    username: intern
+    password: livesense
+    database: jobtalk_dump
+    pool: 5
+
+  development:
+    adapter:  mysql2
+    host:     10.26.2.77
+    username: intern
+    password: livesense
+    database: jobtalk_dump

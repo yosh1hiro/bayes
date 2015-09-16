@@ -1,0 +1,19 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    ffi (1.9.10)
+    mysql2 (0.4.0)
+    natto (1.0.1)
+      ffi (>= 1.9.0)
+    sequel (4.26.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  mysql2
+  natto
+  sequel
+
+BUNDLED WITH
+   1.10.6
