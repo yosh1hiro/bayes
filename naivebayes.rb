@@ -58,7 +58,15 @@ class NaiveBayes
   def score(words, cat)
     score = Math.log(prior_prob(cat))
     words.each do |w|
-      score += Math.log(word_prob(w, cat))
+      probability = Math.log(word_prob(w, cat))
+      if probability > -3.0
+        probability = probability * 0.5
+      elsif probability < -4.6
+        probability = probability * 0.8
+      else
+        probability
+      end
+      score += probability
     end
     # p @@log.info "score: #{words} => #{score}"
     score
@@ -87,7 +95,7 @@ class NaiveBayes
       end
     end
     diff = app_score - libel_score
-    if diff >= -25  # -25
+    if diff >= -20  # -25
       best = "libel"
     else
       best = "approval"
@@ -117,18 +125,18 @@ if $0 == __FILE__
   (1..17).each do |n|
     nb.libel_learn(200, (n*200 - 199))
   end
-  (1..34).each do |n|
-    nb.approval_learn(300, (n*200 - 199)) #  10200
+  (1..44).each do |n|
+    nb.approval_learn(200, (n*200 - 199)) #  10200
   end
   nb.libel_learn(181, 3400)
   # nb.approval_learn(181, 3400)
 
   @answer = 0
   @false_words = {}
-  ConnectDatabase.gets_approval_test.each do |l|
+  ConnectDatabase.gets_libel_test.each do |l|
     answer = nb.classifier(l.join(" "))
     p @@log.info "key: #{answer[0]} #{answer[1]}"
-    if answer[0] == "approval"
+    if answer[0] == "libel"
       @answer += 1
       puts "合ってるお"
     else
