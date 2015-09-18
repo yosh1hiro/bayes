@@ -8,8 +8,10 @@ DB = Sequel.connect('mysql2://intern:livesense@10.26.2.77/jobtalk_dump')
 #
 # File.write("approval_learning.txt", libels.join(", "))
 
-a = DB[:comments].where(libel:1).order{id.asc}.limit(2).select(:comment).map(&:values)
-p a
-a.each do |l|
-  p "1: #{l.join(" ")}"
-end
+# a = DB[:comments].where(libel:1).order{id.asc}.limit(100).select(:comment).map(&:values)
+
+b = DB[:comments].where(libel:1).count
+p b
+# a.each do |l|
+#   p "1: #{l.join(" ")}"
+# end

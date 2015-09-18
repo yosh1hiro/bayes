@@ -51,7 +51,7 @@ class NaiveBayes
   end
 
   def word_prob(word, cat)
-    (in_category(word, cat) + 1.0) / (@wordcount[cat].values.inject(:+))
+    (in_category(word, cat) + 1.0) / (@wordcount[cat].values.inject(:+) + @vocabularies.size)
     # p @log.info "条件付き確率: #{word}と#{cat} => #{a}"
   end
 
@@ -87,7 +87,7 @@ class NaiveBayes
       end
     end
     diff = app_score - libel_score
-    if diff >= -25  # -25
+    if diff >= -30  # -25
       best = "libel"
     else
       best = "approval"
@@ -116,12 +116,11 @@ if $0 == __FILE__
 
   (1..17).each do |n|
     nb.libel_learn(200, (n*200 - 199))
+    nb.approval_learn(400, (n*200 - 199)) #  7162
   end
-  (1..34).each do |n|
-    nb.approval_learn(300, (n*200 - 199)) #  10200
-  end
+
   nb.libel_learn(181, 3400)
-  # nb.approval_learn(181, 3400)
+  nb.approval_learn(181, 3400)
 
   @answer = 0
   @false_words = {}
