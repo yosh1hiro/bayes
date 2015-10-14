@@ -4,7 +4,7 @@ require "rubygems"
 require "sequel"
 
 module ConnectDatabase
-  DB = Sequel.connect('mysql2://intern:livesense@10.26.2.77/jobtalk_dump')
+  DB = Sequel.connect(<%= ENV['DB_USERNAME'] %>])
 
   module_function
 
